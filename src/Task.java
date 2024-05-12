@@ -24,31 +24,21 @@ public class Task {
         String[] tasks = new String[taskSize]; // size ı kadar array için gerekli
         taskTypesList.add(taskName + " "+taskSize) ;//task typelara ekledi
 
-
-        //System.out.println(newTask.taskId+"ıd"+"  "+newTask.taskSize+"size"+"Oluşturuldu");
-        //System.out.println(taskTypesList+"Task Types list : listeye eklendi");
+        System.out.println("Yeni task oluşturuldu");
         newTask.toString();
-
-        System.out.println("Taskss{");
         for (int i = 0;i<taskSize;i++){
             tasks[i] = taskName ;
-            System.out.printf(taskName+" " );
-            //String.valueOf(new String[]{taskName});
         }
-        System.out.println("}");
     }
-
-
 
     @Override
     public String toString() {
         return "Task{" +
                 "taskId='" + taskId + '\'' +
                 ", taskSize=" + taskSize +
+                ", taskTypes=" + taskTypesList +
                 '}';
     }
-
-
 
     public String getTaskId() {
         return taskId;
