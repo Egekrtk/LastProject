@@ -8,7 +8,6 @@ public class Station extends Task{
     public static ArrayList<String> stationTypesList = new ArrayList<>();
     private String speed;
 
-
     public Station(){
     }
 
@@ -26,7 +25,6 @@ public class Station extends Task{
         newStation.setStationId(newStationId);
         stationTypesList.add(newStationId +" ");
         newStation.toString();
-
     }
 
     @Override

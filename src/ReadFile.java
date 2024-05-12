@@ -13,8 +13,7 @@ public class ReadFile {
 
         try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
             String line = br.readLine();
-            while ((line = br.readLine()) != null) { // satırı okuyo
-                //line != null && line.endsWith(")")
+            while ((line = br.readLine()) != null) {
                 if (line.startsWith("(TASKTYPES") && line.endsWith(")")) {
                     ArrayList<String> taskParts = new ArrayList<>(List.of(line.split(" ")));
                     for (int i = 1; i < taskParts.size(); i++) {
@@ -47,7 +46,7 @@ public class ReadFile {
                     if (line.startsWith("(J") && line.endsWith(")")) {
                         ArrayList<String> jobsParts = new ArrayList<>(List.of(line.split("  ")));
                         line += 1;
-                        Job newJob = new Job();
+                        // Job newJob = new Job(); eklencek
                     }
                 }
 
@@ -76,14 +75,8 @@ public class ReadFile {
                         }
                     }
                     System.out.println(newStation.toString());
-
-                    if (line.isEmpty()) {
-                        System.out.println("en son");
-                    }
-
-
                 }
-                }
+            }
         }
     }
 }

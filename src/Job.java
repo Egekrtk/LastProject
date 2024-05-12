@@ -1,9 +1,13 @@
+import java.util.ArrayList;
+
 public class Job {
     // oluşan Taskleri belli joba eklmemiz lazım
     private String jobId;
     private String jobTypeId;
     private int startTime;
     private int duration;
+    public ArrayList<Task> tasksForJob;
+    public static ArrayList<String> jobTypesList = new ArrayList<>();
 
     public Job(){
 
@@ -14,6 +18,7 @@ public class Job {
         this.startTime = startTime;
         this.duration = duration;
     }
+
 
 
     @Override

@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ReadJobFile {
+public class ReadJobFile  extends Job{
     public ReadJobFile(String jobFileName) throws IOException {
         File jobFile = new File("jobList.txt");
         try (BufferedReader br = new BufferedReader(new FileReader(jobFile))) {
@@ -15,14 +15,13 @@ public class ReadJobFile {
                     ArrayList<String> jobParts = new ArrayList<>(List.of(line.split(" ")));
                     line += 1;
                     Job newJob = new Job("Default", "Default", 0, 0);
-
                     newJob.setJobId(jobParts.get(0));
                     newJob.setJobTypeId(jobParts.get(1));
                     newJob.setStartTime(Integer.parseInt(jobParts.get(2)));
                     newJob.setDuration(Integer.parseInt(jobParts.get(3)));
                     System.out.println(newJob.toString());
+                    jobTypesList.add(newJob.getJobId() +" "+ newJob.getJobTypeId());
                 }
-
             }
         }
     }
