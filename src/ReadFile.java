@@ -67,8 +67,7 @@ public class ReadFile {
                             newStation.setFifoFlag(parts);
                         } else if (parts.contains("T")) {
                                 newStation.setTaskId(parts);
-                            newStation.setTaskId(parts);
-                        }else if (parts.contains(". ")){
+                        }else if (parts.contains(".") && parts.contains(")")){
                             newStation.setSpeed(parts);
                         }else {
                             if (parts.contains(")")){
