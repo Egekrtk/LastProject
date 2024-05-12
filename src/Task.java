@@ -5,6 +5,7 @@ public class Task {
     private String taskId;
     private int taskSize;
     public static ArrayList<String> taskTypesList = new ArrayList<>();
+    private String name;
     public Task(){
     }
 
