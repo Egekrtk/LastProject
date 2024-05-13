@@ -22,13 +22,14 @@ public class Task {
     public static void createNewTask(String taskName, int taskSize){
         Task newTask = new Task(taskName,taskSize);
         newTask.setTaskId(taskName);
-        String[] tasks = new String[taskSize]; // size ı kadar array için gerekli !!
+        ArrayList<String> tasks = new ArrayList<>(); // size ı kadar array için gerekli !!
         taskTypesList.add(taskName + " "+taskSize) ;
         System.out.println("Yeni task oluşturuldu");
-        newTask.toString();
         for (int i = 0;i<taskSize;i++){
-            tasks[i] = taskName ;
+            tasks.add(taskName) ;
         }
+        newTask.toString();
+        System.out.println("içindeki taskler= "+ tasks);
     }
 
     @Override

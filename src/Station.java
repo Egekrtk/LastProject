@@ -7,6 +7,7 @@ public class Station extends Task{
     private String multiFlag;
     private String fifoFlag;
     public static LinkedList<String> stationTypesList = new LinkedList<>();
+    public static LinkedList<String> stationWithTaskList = new LinkedList<>();
     private String speed;
 
     public Station(){
@@ -19,13 +20,7 @@ public class Station extends Task{
         this.multiFlag = multiFlag;
         this.fifoFlag = fifoFlag;
         this.speed = speed;
-    }
-
-    public static void createNewStation(String newStationId, String newCapacity, String newMultiflag, String newFifoflag, LinkedList<String> newTaskList, String newSpeed){
-        Station newStation = new Station(newStationId, newCapacity,newMultiflag,newFifoflag , newTaskList,newSpeed);
-        newStation.setStationId(newStationId);
-        stationTypesList.add(newStationId +" ");
-        newStation.toString();
+        stationTypesList.add(stationId);
     }
 
     @Override
