@@ -15,16 +15,17 @@ public class ReadJobFile  extends Job{
                 if (line.startsWith("Job")) {
                     LinkedList<String> jobParts = new LinkedList<>(List.of(line.split(" ")));
                     line += 1;
+                    LinkedList<String> jobPreferences = new LinkedList<>();
                     Job newJob = new Job("Default", "Default", 0, 0);
                     newJob.setJobId(jobParts.get(0));
                     newJob.setJobTypeId(jobParts.get(1));
                     newJob.setStartTime(Integer.parseInt(jobParts.get(2)));
                     newJob.setDuration(Integer.parseInt(jobParts.get(3)));
                     System.out.println(newJob.toString());
-                    jobTypeList.add(newJob.getJobId() +" "+ newJob.getJobTypeId());
-                    System.out.println("Liste : " + jobTypeList);
+                    jobTypeList.add(newJob.getJobId() +" "+ newJob.getJobTypeId() +" "+ newJob.getStartTime() + " "+ newJob.getDuration());
+                    jobPreferences.add(jobTypeList.getLast());
+                    System.out.println(jobPreferences);
                 }
-
             }
             br.close();
         }

@@ -31,7 +31,6 @@ public class Station extends Task{
                 ", multiFlag='" + multiFlag + '\'' +
                 ", fifoFlag='" + fifoFlag + '\'' +
                 ", speed=" + speed + '\'' +
-                ", Tasks=" + taskTypesList +
                 '}';
     }
 

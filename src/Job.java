@@ -24,9 +24,7 @@ public class Job extends  Task{
     public Job(String jobId,LinkedList<String>taskList){
         super(String.valueOf(taskTypesList=taskList));
         this.jobId = jobId;
-
     }
-
 
     @Override
     public String toString() {

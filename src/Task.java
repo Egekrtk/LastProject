@@ -24,12 +24,11 @@ public class Task {
         newTask.setTaskId(taskName);
         ArrayList<String> tasks = new ArrayList<>(); // size ı kadar array için gerekli !!
         taskTypesList.add(taskName + " "+taskSize) ;
-        System.out.println("Yeni task oluşturuldu");
         for (int i = 0;i<taskSize;i++){
             tasks.add(taskName) ;
         }
-        newTask.toString();
-        System.out.println("içindeki taskler= "+ tasks);
+        //newTask.toString();
+        //System.out.println("içindeki taskler= "+ tasks);
     }
 
     @Override
