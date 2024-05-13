@@ -1,10 +1,11 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 
 public class Task {
     private String taskId;
     private int taskSize;
-    public static ArrayList<String> taskTypesList = new ArrayList<>();
+    public static LinkedList<String> taskTypesList =  new LinkedList<>();
 
     public Task(){
     }
@@ -51,10 +52,10 @@ public class Task {
     public void setTaskSize(int taskSize) {
         this.taskSize = taskSize;
     }
-    public static ArrayList<String> getTaskList() {
+    public static LinkedList<String> getTaskList() {
         return taskTypesList;
     }
-    public static void setTaskList(ArrayList<String> taskList) {
+    public static void setTaskList(LinkedList<String> taskList) {
         Task.taskTypesList = taskList;
     }
 }

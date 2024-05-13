@@ -9,10 +9,7 @@ public class Main {
 
         ReadJobFile jobFile = new ReadJobFile("jobList.txt");
         ReadFile file = new ReadFile("deneme.txt");
-
-        Job job = new Job();
-        Task task = new Task();
-        Station station = new Station();
+        System.out.println(Job.jobWithTaskList);
 
     }
 }

@@ -3,6 +3,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class ReadJobFile  extends Job{
@@ -12,7 +13,7 @@ public class ReadJobFile  extends Job{
             String line = br.readLine();
             while ((line = br.readLine()) != null) {
                 if (line.startsWith("Job")) {
-                    ArrayList<String> jobParts = new ArrayList<>(List.of(line.split(" ")));
+                    LinkedList<String> jobParts = new LinkedList<>(List.of(line.split(" ")));
                     line += 1;
                     Job newJob = new Job("Default", "Default", 0, 0);
                     newJob.setJobId(jobParts.get(0));
@@ -20,9 +21,12 @@ public class ReadJobFile  extends Job{
                     newJob.setStartTime(Integer.parseInt(jobParts.get(2)));
                     newJob.setDuration(Integer.parseInt(jobParts.get(3)));
                     System.out.println(newJob.toString());
-                    jobTypesList.add(newJob.getJobId() +" "+ newJob.getJobTypeId());
+                    jobTypeList.add(newJob.getJobId() +" "+ newJob.getJobTypeId());
+                    System.out.println("Liste : " + jobTypeList);
                 }
+
             }
+            br.close();
         }
     }
 }

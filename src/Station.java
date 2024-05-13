@@ -1,17 +1,18 @@
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class Station extends Task{
     private String stationId;
     private String capacity;// capacity.length yazdırırız görürüz
     private String multiFlag;
     private String fifoFlag;
-    public static ArrayList<String> stationTypesList = new ArrayList<>();
+    public static LinkedList<String> stationTypesList = new LinkedList<>();
     private String speed;
 
     public Station(){
     }
 
-    public Station(String stationId, String capacity, String multiFlag, String fifoFlag, ArrayList<String> taskList,String speed) {
+    public Station(String stationId, String capacity, String multiFlag, String fifoFlag, LinkedList<String> taskList, String speed) {
         super(String.valueOf(taskTypesList=taskList));
         this.stationId = stationId;
         this.capacity = capacity;
@@ -20,7 +21,7 @@ public class Station extends Task{
         this.speed = speed;
     }
 
-    public static void createNewStation(String newStationId, String newCapacity, String newMultiflag, String newFifoflag, ArrayList<String> newTaskList, String newSpeed){
+    public static void createNewStation(String newStationId, String newCapacity, String newMultiflag, String newFifoflag, LinkedList<String> newTaskList, String newSpeed){
         Station newStation = new Station(newStationId, newCapacity,newMultiflag,newFifoflag , newTaskList,newSpeed);
         newStation.setStationId(newStationId);
         stationTypesList.add(newStationId +" ");
@@ -71,11 +72,11 @@ public class Station extends Task{
         this.fifoFlag = fifoFlag;
     }
 
-    public static ArrayList<String> getStationTypesList() {
+    public static LinkedList<String> getStationTypesList() {
         return stationTypesList;
     }
 
-    public static void setStationTypesList(ArrayList<String> stationTypesList) {
+    public static void setStationTypesList(LinkedList<String> stationTypesList) {
         Station.stationTypesList = stationTypesList;
     }
 

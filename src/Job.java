@@ -1,24 +1,31 @@
-import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Scanner;
 
-public class Job {
+public class Job extends  Task{
+    private static Scanner scanner;
     // oluşan Taskleri belli joba eklmemiz lazım
     private String jobId;
     private String jobTypeId;
     private int startTime;
     private int duration;
-    public ArrayList<Task> tasksForJob;
-    public static ArrayList<String> jobTypesList = new ArrayList<>();
+    public static LinkedList<String> jobTypeList = new LinkedList<>();
 
+    public static LinkedList<String> jobWithTaskList = new LinkedList<String>();
     public Job(){
-
     }
     public Job(String jobId, String jobTypeId, int startTime, int duration) {
         this.jobId = jobId;
         this.jobTypeId = jobTypeId;
         this.startTime = startTime;
         this.duration = duration;
+        jobTypeList.add(jobId);
     }
 
+    public Job(String jobId,LinkedList<String>taskList){
+        super(String.valueOf(taskTypesList=taskList));
+        this.jobId = jobId;
+
+    }
 
 
     @Override

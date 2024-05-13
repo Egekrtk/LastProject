@@ -1,5 +1,6 @@
 import java.io.*;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -15,7 +16,7 @@ public class ReadFile {
             String line = br.readLine();
             while ((line = br.readLine()) != null) {
                 if (line.startsWith("(TASKTYPES") && line.endsWith(")")) {
-                    ArrayList<String> taskParts = new ArrayList<>(List.of(line.split(" ")));
+                    LinkedList<String> taskParts = new LinkedList<>(List.of(line.split(" ")));
                     for (int i = 1; i < taskParts.size(); i++) {
                         System.out.println(taskParts.get(i));
                         if (!taskParts.get(i).contains(")")) {
@@ -42,16 +43,29 @@ public class ReadFile {
                     line += 1;
                 }
 
-                if (line.startsWith("(JOBTYPES") && line.endsWith(" )")) {
-                    if (line.startsWith("(J") && line.endsWith(")")) {
-                        ArrayList<String> jobsParts = new ArrayList<>(List.of(line.split("  ")));
-                        line += 1;
-                        // Job newJob = new Job(); eklencek
+                if (line.startsWith("(J") && line.endsWith(")")) {
+                    ArrayList<String> jobsParts = new ArrayList<>(List.of(line.split(" ")));
+                    line += 1;
+                    Job newJob = new Job("Default",Task.taskTypesList);
+                    LinkedList<String> specialJob = new LinkedList<>();
+                    for (String parts : jobsParts) {
+                        System.out.println(parts);
+                        if (parts.startsWith("(J")){
+                            newJob.setJobId(parts);
+                            specialJob.add(parts);
+                        } else if (parts.startsWith("T")) {
+                            specialJob.add(parts);
+                            System.out.println("Eklendi"+ parts + " Specialjob:"+ specialJob);
+                        }else {
+                            specialJob.add(parts);
+                            System.out.println("Eklendi "+parts + " Specialjob:"+specialJob );
+                        }
+                        specialJob.add(parts);
+                        System.out.println(specialJob);
+                        Job.jobWithTaskList.add(String.valueOf(specialJob));
                     }
                 }
 
-                if (line.startsWith("(STATIONS") && line.endsWith(")")) {
-                }
                 if (line.startsWith("(S") && line.endsWith(")")) {
                     ArrayList<String> stationParts = new ArrayList<>(List.of(line.split(" ")));
                     line += 1;
@@ -76,7 +90,7 @@ public class ReadFile {
                     }
                     System.out.println(newStation.toString());
                 }
-            }
+            }br.close();
         }
     }
 }
