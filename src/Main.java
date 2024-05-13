@@ -9,7 +9,7 @@ public class Main {
 
         ReadJobFile jobFile = new ReadJobFile("jobList.txt");
         ReadFile file = new ReadFile("deneme.txt");
-        System.out.println(Job.jobWithTaskList);
+
 
     }
 }

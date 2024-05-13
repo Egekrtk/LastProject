@@ -16,6 +16,7 @@ public class ReadFile {
             String line = br.readLine();
             while ((line = br.readLine()) != null) {
                 if (line.startsWith("(TASKTYPES") && line.endsWith(")")) {
+                    System.out.println("-----TASKS-----");
                     LinkedList<String> taskParts = new LinkedList<>(List.of(line.split(" ")));
                     for (int i = 1; i < taskParts.size(); i++) {
                         System.out.println(taskParts.get(i));
@@ -43,31 +44,33 @@ public class ReadFile {
                     line += 1;
                 }
 
+
                 if (line.startsWith("(J") && line.endsWith(")")) {
+                    System.out.println("-----JOBS-----");
                     ArrayList<String> jobsParts = new ArrayList<>(List.of(line.split(" ")));
                     line += 1;
                     Job newJob = new Job("Default",Task.taskTypesList);
                     LinkedList<String> specialJob = new LinkedList<>();
                     for (String parts : jobsParts) {
-                        System.out.println(parts);
                         if (parts.startsWith("(J")){
                             newJob.setJobId(parts);
                             specialJob.add(parts);
                         } else if (parts.startsWith("T")) {
                             specialJob.add(parts);
-                            System.out.println("Eklendi"+ parts + " Specialjob:"+ specialJob);
                         }else {
                             specialJob.add(parts);
-                            System.out.println("Eklendi "+parts + " Specialjob:"+specialJob );
                         }
                         specialJob.add(parts);
-                        System.out.println(specialJob);
-                        Job.jobWithTaskList.add(String.valueOf(specialJob));
+                        specialJob.getLast();
+                        Job.jobWithTaskList.add(String.valueOf(specialJob.getLast()));
                     }
+                    System.out.println(Job.jobWithTaskList);
                 }
+
 
                 if (line.startsWith("(S") && line.endsWith(")")) {
                     ArrayList<String> stationParts = new ArrayList<>(List.of(line.split(" ")));
+                    System.out.println("-----STATIONS-----");
                     line += 1;
                     Station newStation = new Station("Default", "Default", "Default", "Default", Task.taskTypesList, "Default");
                     for (String parts : stationParts) {
