@@ -9,7 +9,7 @@ public class Job extends  Task{
     private int startTime;
     private int duration;
     public static LinkedList<String> jobTypeList = new LinkedList<>();
-
+    public static LinkedList<String> jobPreferences = new LinkedList<>();
     public static LinkedList<String> jobWithTaskList = new LinkedList<String>();
     public Job(){
     }

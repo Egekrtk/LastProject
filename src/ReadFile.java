@@ -14,67 +14,77 @@ public class ReadFile {
 
         try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
             String line = br.readLine();
+
             while ((line = br.readLine()) != null) {
-                if (line.startsWith("(TASKTYPES") && line.endsWith(")")) {
-                    LinkedList<String> taskParts = new LinkedList<>(List.of(line.split(" ")));
-                    for (int i = 1; i < taskParts.size(); i++) {
-                        //System.out.println(taskParts.get(i));
-                        if (!taskParts.get(i).contains(")")) {
-                            if (!taskParts.get(i + 1).equals("")) {
-                                Task newTask = new Task(taskParts.get(i), Integer.parseInt(taskParts.get(i + 1)));
-                                newTask.createNewTask(taskParts.get(i), Integer.parseInt(taskParts.get(i + 1)));
+                int lineNumber = line.length();
+                String newLine = line.substring(0, lineNumber);
+                String LastLine = newLine.replaceAll("[( )]", " ");
+
+                if (LastLine.startsWith(" TASKTYPES")) {
+                    LinkedList<String> taskParts = new LinkedList<>(List.of(LastLine.split(" ")));
+                    taskParts.remove(0);
+                    taskParts.remove(0);
+                    for (int i = 0; i <= taskParts.size(); i++) {
+                        for (int j = 1; j <= taskParts.size(); j++) {
+                            if (j == taskParts.size()) {
+                                Task newTask = new Task(taskParts.get(i), 0);
+                                newTask.createNewTask(taskParts.get(i), 0);
                                 //System.out.println(newTask);
                                 i++;
-                            } else if (taskParts.get(i + 1).equals("")) {
-                                Task newTask = new Task(taskParts.get(i));
+                                j++;
+                            } else if (taskParts.get(j).equals("")) {
+                                Task newTask = new Task(taskParts.get(i), 0);
                                 newTask.createNewTask(taskParts.get(i), 0);
-                                System.out.println(newTask.getTaskId() + "Has no size");
-                                System.out.println("Task{" + newTask.getTaskId() + ", taskSize=" + newTask.getTaskSize());
+                                //System.out.println(newTask);
                                 i++;
+                                i++;
+                                j++;
+                            } else {
+                                Task newTask = new Task(taskParts.get(i), Integer.valueOf(taskParts.get(Integer.valueOf(j))));
+                                newTask.createNewTask(taskParts.get(i), Integer.valueOf(taskParts.get(Integer.valueOf(j))));
+                                //System.out.println(newTask);
+                                i++;
+                                i++;
+                                j++;
                             }
-                        } else if (taskParts.get(i).contains(" )")) {
-                            Task newTask = new Task(taskParts.get((i)));
-                            newTask.createNewTask(taskParts.get(i), 0);
-                            System.out.println(newTask.getTaskId() + "Has no size");
-                            System.out.println("Task{" + newTask.getTaskId() + ", taskSize=" + newTask.getTaskSize());
-                            i++;
                         }
                     }
                     System.out.println("-----TASKS-----");
                     System.out.println(Task.taskTypesList);
-                    line += 1;
                 }
 
-
-                if (line.startsWith("(J") && line.endsWith(")")) {
-                    ArrayList<String> jobsParts = new ArrayList<>(List.of(line.split(" ")));
-                    line += 1;
-                    Job newJob = new Job("Default",Task.taskTypesList);
-                    LinkedList<String> specialJob = new LinkedList<>();
-                    for (String parts : jobsParts) {
-                        if (parts.startsWith("(J")){
-                            newJob.setJobId(parts);
-                            specialJob.add(parts);
-                        } else if (parts.startsWith("T")) {
-                            specialJob.add(parts);
-                        }else {
-                            specialJob.add(parts);
-                        }
-                        specialJob.add(parts);
-                        specialJob.getLast();
-                        Job.jobWithTaskList.add(String.valueOf(specialJob.getLast()));
+                if (LastLine.startsWith(" J")) {
+                    if (line.startsWith("(JOBTYPES")) {
+                        continue;
                     }
-                    //System.out.println(Job.jobWithTaskList);
-                }
+                        ArrayList<String> jobsParts = new ArrayList<>(List.of(LastLine.split(" ")));
+                        line += 1;
+                        Job newJob = new Job("Default", Task.taskTypesList);
+                        LinkedList<String> specialJob = new LinkedList<>();
+                        jobsParts.remove(0);
+                        for (String parts : jobsParts) {
+                            if (parts.startsWith("J")) {
+                                newJob.setJobId(parts);
+                                specialJob.add(parts);
+                            } else if (parts.startsWith("T")) {
+                                specialJob.add(parts);
+                            } else {
+                                specialJob.add(parts);
+                            }
+                            specialJob.add(parts);
+                            specialJob.getLast();
+                            Job.jobWithTaskList.add(String.valueOf(specialJob.getLast()));
+                        }
+                    }
 
 
-                if (line.startsWith("(S") && line.endsWith(")")) {
-                    ArrayList<String> stationParts = new ArrayList<>(List.of(line.split(" ")));
+                /* if (LastLine.startsWith(" S")) {
+                    ArrayList<String> stationParts = new ArrayList<>(List.of(LastLine.split(" ")));
                     line += 1;
                     Station newStation = new Station("Default", "Default", "Default", "Default", Task.taskTypesList, "Default");
                     LinkedList<String>specailStation= new LinkedList<>();
                     for (String parts : stationParts) {
-                        if (parts.startsWith("(S")) {
+                        if (parts.startsWith("S")) {
                             newStation.setStationId(String.valueOf(parts));
                             specailStation.add(parts);
                         } else if (parts == stationParts.get(1)) {
@@ -86,14 +96,11 @@ public class ReadFile {
                         } else if (parts.contains("T")) {
                             newStation.setTaskId(parts);
                             specailStation.add(parts);
-                        } else if (parts.contains(".") && parts.contains(")")) {
+                        } else if (parts.contains(".")) {
                             newStation.setSpeed(parts);
                             specailStation.add(parts);
                         } else {
-                            if (parts.contains(")")) {
-                                continue;
-                            }
-                            newStation.setTaskSize(Integer.parseInt(parts));
+                            newStation.setTaskSize(Integer.parseInt((parts)));
                         }
                         specailStation.add(parts);
                         specailStation.getLast();
@@ -106,7 +113,9 @@ public class ReadFile {
             System.out.println(Job.jobWithTaskList);
             System.out.println("-----STATIONS-----");
             System.out.println(Station.stationWithTaskList);
-        }
+        }*/
 
+            }
+        }
     }
 }

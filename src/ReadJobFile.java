@@ -12,21 +12,23 @@ public class ReadJobFile  extends Job{
         try (BufferedReader br = new BufferedReader(new FileReader(jobFile))) {
             String line = br.readLine();
             while ((line = br.readLine()) != null) {
-                if (line.startsWith("Job")) {
-                    LinkedList<String> jobParts = new LinkedList<>(List.of(line.split(" ")));
-                    line += 1;
-                    LinkedList<String> jobPreferences = new LinkedList<>();
+                int lineNumber = line.length();
+                String newLine =  line.substring(0,lineNumber);
+                String LastLine = newLine.replaceAll("[( )]"," ");
+
+                    LinkedList<String> jobParts = new LinkedList<>(List.of(LastLine.split(" ")));
+
+
                     Job newJob = new Job("Default", "Default", 0, 0);
                     newJob.setJobId(jobParts.get(0));
                     newJob.setJobTypeId(jobParts.get(1));
                     newJob.setStartTime(Integer.parseInt(jobParts.get(2)));
                     newJob.setDuration(Integer.parseInt(jobParts.get(3)));
-                    System.out.println(newJob.toString());
+                    //System.out.println(newJob.toString());
                     jobTypeList.add(newJob.getJobId() +" "+ newJob.getJobTypeId() +" "+ newJob.getStartTime() + " "+ newJob.getDuration());
                     jobPreferences.add(jobTypeList.getLast());
-                    System.out.println(jobPreferences);
+                    //System.out.println("Job özellikleri: "+ jobPreferences);
                 }
-            }
             br.close();
         }
     }
