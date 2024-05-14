@@ -3,17 +3,17 @@ import java.util.LinkedList;
 
 public class Station extends Task{
     private String stationId;
-    private String capacity;// capacity.length yazdırırız görürüz
+    private int capacity;// capacity.length yazdırırız görürüz
     private String multiFlag;
     private String fifoFlag;
     public static LinkedList<String> stationTypesList = new LinkedList<>();
     public static LinkedList<String> stationWithTaskList = new LinkedList<>();
-    private String speed;
+    private double speed;
 
     public Station(){
     }
 
-    public Station(String stationId, String capacity, String multiFlag, String fifoFlag, LinkedList<String> taskList, String speed) {
+    public Station(String stationId, int capacity, String multiFlag, String fifoFlag, LinkedList<String> taskList, double speed) {
         super(String.valueOf(taskTypesList=taskList));
         this.stationId = stationId;
         this.capacity = capacity;
@@ -42,11 +42,11 @@ public class Station extends Task{
         this.stationId = stationId;
     }
 
-    public String getCapacity() {
+    public int getCapacity() {
         return capacity;
     }
 
-    public void setCapacity(String capacity) {
+    public void setCapacity(int capacity) {
         this.capacity = capacity;
     }
 
@@ -74,11 +74,11 @@ public class Station extends Task{
         Station.stationTypesList = stationTypesList;
     }
 
-    public String getSpeed() {
+    public double getSpeed() {
         return speed;
     }
 
-    public void setSpeed(String speed) {
+    public void setSpeed(double speed) {
         this.speed = speed;
     }
 }

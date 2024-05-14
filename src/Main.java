@@ -16,12 +16,24 @@ public class Main {
 
         System.out.println("Joblar ve  Özellikleri : ");
         System.out.println(Job.jobPreferences);
-        /*
-        System.out.println(Job.jobPreferences.get(0));
-        System.out.println(Job.jobPreferences.get(1));
-        System.out.println(Job.jobPreferences.get(2));
-        System.out.println(Job.jobPreferences.get(3));
-        System.out.println(Job.jobPreferences.get(4));
-*/
+
+        System.out.println("Stations");
+        System.out.println(Station.stationWithTaskList);
+
+
+        /*System.out.println("----- DENEME -----");
+        for (int i = 0;i<Task.taskTypesList.size();i++){
+            System.out.println(Task.taskTypesList.get(i));
+        }
+        for (int i =0;i < Job.jobPreferences.size();i++){
+            System.out.println(Job.jobPreferences.get(i));
+        }
+        for (int i = 0;i<Job.jobWithTaskList.size();i++){
+            System.out.println(Job.jobWithTaskList.get(i));
+        }
+        for (int i = 0;i<Station.stationWithTaskList.size();i++){
+            System.out.println(Station.stationWithTaskList.get(i));
+        }
+         */
     }
 }

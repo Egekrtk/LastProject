@@ -15,10 +15,7 @@ public class ReadJobFile  extends Job{
                 int lineNumber = line.length();
                 String newLine =  line.substring(0,lineNumber);
                 String LastLine = newLine.replaceAll("[( )]"," ");
-
                     LinkedList<String> jobParts = new LinkedList<>(List.of(LastLine.split(" ")));
-
-
                     Job newJob = new Job("Default", "Default", 0, 0);
                     newJob.setJobId(jobParts.get(0));
                     newJob.setJobTypeId(jobParts.get(1));

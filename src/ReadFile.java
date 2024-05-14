@@ -57,63 +57,54 @@ public class ReadFile {
                     if (line.startsWith("(JOBTYPES")) {
                         continue;
                     }
-                        ArrayList<String> jobsParts = new ArrayList<>(List.of(LastLine.split(" ")));
-                        line += 1;
-                        Job newJob = new Job("Default", Task.taskTypesList);
-                        LinkedList<String> specialJob = new LinkedList<>();
-                        jobsParts.remove(0);
-                        for (String parts : jobsParts) {
-                            if (parts.startsWith("J")) {
-                                newJob.setJobId(parts);
-                                specialJob.add(parts);
-                            } else if (parts.startsWith("T")) {
-                                specialJob.add(parts);
-                            } else {
-                                specialJob.add(parts);
-                            }
-                            specialJob.add(parts);
-                            specialJob.getLast();
-                            Job.jobWithTaskList.add(String.valueOf(specialJob.getLast()));
-                        }
-                    }
-
-
-                /* if (LastLine.startsWith(" S")) {
-                    ArrayList<String> stationParts = new ArrayList<>(List.of(LastLine.split(" ")));
+                    ArrayList<String> jobsParts = new ArrayList<>(List.of(LastLine.split(" ")));
                     line += 1;
-                    Station newStation = new Station("Default", "Default", "Default", "Default", Task.taskTypesList, "Default");
-                    LinkedList<String>specailStation= new LinkedList<>();
-                    for (String parts : stationParts) {
-                        if (parts.startsWith("S")) {
-                            newStation.setStationId(String.valueOf(parts));
-                            specailStation.add(parts);
-                        } else if (parts == stationParts.get(1)) {
-                            newStation.setMultiFlag(parts);
-                            specailStation.add(parts);
-                        } else if (parts.contains("N") || parts.contains("Y")) {
-                            newStation.setFifoFlag(parts);
-                            specailStation.add(parts);
-                        } else if (parts.contains("T")) {
-                            newStation.setTaskId(parts);
-                            specailStation.add(parts);
-                        } else if (parts.contains(".")) {
-                            newStation.setSpeed(parts);
-                            specailStation.add(parts);
+                    Job newJob = new Job("Default", Task.taskTypesList);
+                    LinkedList<String> specialJob = new LinkedList<>();
+                    jobsParts.remove(0);
+                    for (String parts : jobsParts) {
+                        if (parts.startsWith("J")) {
+                            newJob.setJobId(parts);
+                            specialJob.add(parts);
+                        } else if (parts.startsWith("T")) {
+                            specialJob.add(parts);
                         } else {
-                            newStation.setTaskSize(Integer.parseInt((parts)));
+                            specialJob.add(parts);
+                        }
+                        specialJob.add(parts);
+                        specialJob.getLast();
+                        Job.jobWithTaskList.add(String.valueOf(specialJob.getLast()));
+                    }
+                }
+                if (LastLine.startsWith(" S")) {
+                    if (line.startsWith("(STATIONS")) {
+                        continue;
+                    }ArrayList<String> stationParts = new ArrayList<>(List.of(LastLine.split(" ")));
+                    line += 1;
+                    Station newStation = new Station("Default", 0, "Default", "Default", Task.taskTypesList,0.0 );
+                    LinkedList<String> specailStation = new LinkedList<>();
+                    stationParts.remove(0);
+                    for (String parts: stationParts){
+                        if (parts.startsWith("S")){
+                            newStation.setStationId(parts);
+                        } else if (parts.equals(stationParts.get(1))) {
+                            newStation.setCapacity(Integer.parseInt(parts));
+                        } else if (parts.equals(stationParts.get(2))) {
+                            newStation.setMultiFlag(parts);
+                        }else if (parts.equals(stationParts.get(3))){
+                            newStation.setFifoFlag(parts);
+                        } else if (parts.startsWith("T")) {
+                            newStation.setTaskId(parts);
+                        } else if (parts.contains(".")) {
+                            newStation.setSpeed(Double.parseDouble(parts));
+                        } else {
+                            newStation.setTaskSize(Integer.parseInt(parts));
                         }
                         specailStation.add(parts);
                         specailStation.getLast();
                         Station.stationWithTaskList.add(String.valueOf(specailStation.getLast()));
                     }
-                    //System.out.println(Station.stationWithTaskList);
                 }
-            }br.close();
-            System.out.println("-----JOBS-----");
-            System.out.println(Job.jobWithTaskList);
-            System.out.println("-----STATIONS-----");
-            System.out.println(Station.stationWithTaskList);
-        }*/
 
             }
         }
