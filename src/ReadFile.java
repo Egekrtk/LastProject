@@ -1,12 +1,10 @@
 import java.io.*;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class ReadFile {
     private Task task;
     private static Scanner scanner;
+    private static double time = 0.0;
 
     public ReadFile(String fileName) throws IOException {
         File file = new File("deneme.txt");
@@ -49,8 +47,6 @@ public class ReadFile {
                             }
                         }
                     }
-                    System.out.println("-----TASKS-----");
-                    System.out.println(Task.taskTypesList);
                 }
 
                 if (LastLine.startsWith(" J")) {
@@ -65,48 +61,56 @@ public class ReadFile {
                     for (String parts : jobsParts) {
                         if (parts.startsWith("J")) {
                             newJob.setJobId(parts);
-                            specialJob.add(parts);
                         } else if (parts.startsWith("T")) {
                             specialJob.add(parts);
                         } else {
                             specialJob.add(parts);
                         }
-                        specialJob.add(parts);
-                        specialJob.getLast();
-                        Job.jobWithTaskList.add(String.valueOf(specialJob.getLast()));
                     }
+                    for (String taskler : specialJob) {
+                        //System.out.println("Id si:" + newJob.getJobId() + " --" + "Taskleri :" + specialJob);
+                    }
+                    Job.jobWithTaskList.add(newJob.getJobId() + specialJob);
                 }
+
+
                 if (LastLine.startsWith(" S")) {
                     if (line.startsWith("(STATIONS")) {
                         continue;
-                    }ArrayList<String> stationParts = new ArrayList<>(List.of(LastLine.split(" ")));
-                    line += 1;
-                    Station newStation = new Station("Default", 0, "Default", "Default", Task.taskTypesList,0.0 );
-                    LinkedList<String> specailStation = new LinkedList<>();
-                    stationParts.remove(0);
-                    for (String parts: stationParts){
-                        if (parts.startsWith("S")){
-                            newStation.setStationId(parts);
-                        } else if (parts.equals(stationParts.get(1))) {
-                            newStation.setCapacity(Integer.parseInt(parts));
-                        } else if (parts.equals(stationParts.get(2))) {
-                            newStation.setMultiFlag(parts);
-                        }else if (parts.equals(stationParts.get(3))){
-                            newStation.setFifoFlag(parts);
-                        } else if (parts.startsWith("T")) {
-                            newStation.setTaskId(parts);
-                        } else if (parts.contains(".")) {
-                            newStation.setSpeed(Double.parseDouble(parts));
-                        } else {
-                            newStation.setTaskSize(Integer.parseInt(parts));
-                        }
-                        specailStation.add(parts);
-                        specailStation.getLast();
-                        Station.stationWithTaskList.add(String.valueOf(specailStation.getLast()));
                     }
-                }
+                    LinkedList<String> stationParts = new LinkedList<>(List.of(LastLine.split(" ")));
+                    line += 1;
+                    Station newStation = new Station("Default",0,"Default", "Default",0.0);
+                    stationParts.remove(0);
 
+                        newStation.setStationId(stationParts.get(0));
+                        newStation.setCapacity(Integer.parseInt(stationParts.get(1)));
+                        newStation.setMultiFlag(stationParts.get(2));
+                        newStation.setFifoFlag(stationParts.get(3));
+                        newStation.setTaskId(stationParts.get(4));
+                        newStation.setTaskSize(Integer.parseInt(stationParts.get(5)));
+                        if (stationParts.contains("T")) {
+                            newStation.setTaskSize(Integer.parseInt(stationParts.get(4) + stationParts.get(5) + stationParts.get(6) + stationParts.get(7)));
+                        }
+                        newStation.setSpeed(Double.parseDouble(stationParts.getLast()));
+                    Station.stationTypesList.add(newStation);
+
+                }
             }
+            System.out.println("-----TASKS-----");
+            System.out.println(Task.taskTypesList);
+            System.out.println("-----JOBS-----");
+            System.out.println(Job.jobWithTaskList);
+            System.out.println("-----STATIONS-----");
+            System.out.println(Station.stationTypesList);
+            System.out.println("-----JOBS PREFERENCES-----");
+            System.out.println(Job.jobTypeList);
         }
+        makeEventQueue();
+    }
+    public static void makeEventQueue() {
+
+
+
     }
 }

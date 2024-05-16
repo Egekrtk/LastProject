@@ -9,16 +9,21 @@ public class Main {
 
         ReadJobFile jobFile = new ReadJobFile("jobList.txt");
         ReadFile file = new ReadFile("deneme.txt");
-        Job job = new Job();
 
+
+        /*
         System.out.println("JobTypes :");
         System.out.println(Job.jobWithTaskList);
+
 
         System.out.println("Joblar ve  Özellikleri : ");
         System.out.println(Job.jobPreferences);
 
         System.out.println("Stations");
         System.out.println(Station.stationWithTaskList);
+
+        //Bunları ekle eventqueuye ordan devam et,for eachle lisstekilere baksın eşitlesin, equalsla çek timeları
+
 
 
         /*System.out.println("----- DENEME -----");

@@ -5,7 +5,7 @@ import java.util.LinkedList;
 public class Task {
     private String taskId;
     private int taskSize;
-    public static LinkedList<String> taskTypesList =  new LinkedList<>();
+    public static LinkedList<Task> taskTypesList =  new LinkedList<>();
 
     public Task(){
     }
@@ -23,7 +23,7 @@ public class Task {
         Task newTask = new Task(taskName,taskSize);
         newTask.setTaskId(taskName);
         ArrayList<String> tasks = new ArrayList<>(); // size ı kadar array için gerekli !!
-        taskTypesList.add(taskName + " "+taskSize) ;
+        taskTypesList.add(newTask) ;
         for (int i = 0;i<taskSize;i++){
             tasks.add(taskName) ;
         }
@@ -36,7 +36,6 @@ public class Task {
         return "Task{" +
                 "taskId='" + taskId + '\'' +
                 ", taskSize=" + taskSize +
-                ", taskTypes=" + taskTypesList +
                 '}';
     }
 
@@ -52,10 +51,10 @@ public class Task {
     public void setTaskSize(int taskSize) {
         this.taskSize = taskSize;
     }
-    public static LinkedList<String> getTaskList() {
+    public static LinkedList<Task> getTaskList() {
         return taskTypesList;
     }
-    public static void setTaskList(LinkedList<String> taskList) {
+    public static void setTaskList(LinkedList<Task> taskList) {
         Task.taskTypesList = taskList;
     }
 }

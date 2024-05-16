@@ -8,20 +8,30 @@ public class Job extends  Task{
     private String jobTypeId;
     private int startTime;
     private int duration;
-    public static LinkedList<String> jobTypeList = new LinkedList<>();
-    public static LinkedList<String> jobPreferences = new LinkedList<>();
-    public static LinkedList<String> jobWithTaskList = new LinkedList<String>();
+    public static LinkedList<Job> jobTypeList = new LinkedList<>();
+
+    public static LinkedList<String> jobWithTaskList = new LinkedList<>();
+
     public Job(){
     }
+    public  Job(String jobId,String taskId,int taskSize){
+        Job newJob = new Job();
+        newJob.setJobId(jobId);
+        Task newTask = new Task(taskId, taskSize);
+        Task.taskTypesList.add((newTask));
+        Job.jobWithTaskList.add(String.valueOf(newJob));
+    }
+
+
     public Job(String jobId, String jobTypeId, int startTime, int duration) {
         this.jobId = jobId;
         this.jobTypeId = jobTypeId;
         this.startTime = startTime;
         this.duration = duration;
-        jobTypeList.add(jobId);
+
     }
 
-    public Job(String jobId,LinkedList<String>taskList){
+    public Job(String jobId, LinkedList<Task> taskList){
         super(String.valueOf(taskTypesList=taskList));
         this.jobId = jobId;
     }
@@ -33,8 +43,10 @@ public class Job extends  Task{
                 ", jobTypeId='" + jobTypeId + '\'' +
                 ", startTime=" + startTime +
                 ", duration=" + duration +
+                ", totalTime= "+ (startTime+duration)+
                 '}';
     }
+
     public String getJobId() {
         return jobId;
     }
@@ -66,4 +78,5 @@ public class Job extends  Task{
     public void setDuration(int duration) {
         this.duration = duration;
     }
+
 }
