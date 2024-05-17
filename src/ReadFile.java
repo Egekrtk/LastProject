@@ -1,5 +1,7 @@
+import java.awt.*;
 import java.io.*;
 import java.util.*;
+import java.util.List;
 
 public class ReadFile {
     private Task task;
@@ -48,40 +50,6 @@ public class ReadFile {
                         }
                     }
                 }
-
-                if (LastLine.startsWith(" J")) {
-                    if (line.startsWith("(JOBTYPES")) {
-                        continue;
-                    }
-                    ArrayList<String> jobsParts = new ArrayList<>(List.of(LastLine.split(" ")));
-                    line += 1;
-                    Job newJob = new Job("Default");
-                    jobsParts.remove(0);
-                    for (String parts : jobsParts) {
-                        Task newTask = new Task("Default");
-                        if (parts.startsWith("J")) {
-                            newJob.setJobId(parts);
-                        } else if(parts.equals("0")|| parts.equals("1")||parts.equals("2") || parts.equals("3")|| parts.equals("4")||parts.equals("5")|| parts.equals("6")||
-                                parts.equals("7")|| parts.equals("8")|| parts.equals("9")){
-                            newTask.setTaskSize(Integer.parseInt(parts));
-                            newJob.setTaskSize(newTask.getTaskSize());
-                        } else {
-                            for (Task ifTask: Task.taskTypesList){
-                                if (parts.equals(ifTask.getTaskId())){
-                                    newTask.setTaskId(ifTask.getTaskId());
-                                    newTask.setTaskSize(ifTask.getTaskSize());
-                                }else {
-                                    //System.out.println("Hata verdi");
-                                }
-                                newTask.setTaskId(parts);
-                            }
-                                newJob.jobWithTaskList.add(newTask);
-                        }
-                    }
-                    System.out.println("jobId: "+newJob.getJobId()+newJob.jobWithTaskList);
-                }
-
-
                 if (LastLine.startsWith(" S")) {
                     if (line.startsWith("(STATIONS")) {
                         continue;
@@ -114,7 +82,8 @@ public class ReadFile {
                                 parts.equals("7") || parts.equals("8") || parts.equals("9"))) {
                             newTask.setTaskSize(Integer.parseInt(String.valueOf(parts)));
                             newStation.setSpeed(newTask.getTaskSize() / newStation.getSpeed());
-                            newStation.setTaskSize(newTask.getTaskSize());
+                            //newStation.setTaskSize(newTask.getTaskSize());
+                            newStation.setTaskSize(newStation.getTaskSize());//JOB DA Kİ GİBİ TASKSİZE I SPEEDE EŞİTLEDİM
                             //speedi burda ayarlayabilirsin yüzde kısmını galiba ama bilmiyom salla
                         }
                         if (newTask.getTaskId().contains("Default")){
@@ -125,9 +94,56 @@ public class ReadFile {
                     }
                     Station.stationTypesList.add(newStation);
                     System.out.println("Station ıd: "+newStation.getStationId()+newStation.stationWithTaskList + "Station task making speed :"+ newStation.getSpeed());
+
                 }
 
+                if (LastLine.startsWith(" J")) {
+                    if (line.startsWith("(JOBTYPES")) {
+                        continue;
+                    }
+                    ArrayList<String> jobsParts = new ArrayList<>(List.of(LastLine.split(" ")));
+                    line += 1;
+                    Job newJob = new Job("Default");
+                    jobsParts.remove(0);
+                    for (String parts : jobsParts) {
+                        Task newTask = new Task("Default");
+                        if (parts.startsWith("J")) {
+                            newJob.setJobId(parts);
+                        } else if (parts.equals("0") || parts.equals("1") || parts.equals("2") || parts.equals("3") || parts.equals("4") || parts.equals("5") || parts.equals("6") ||
+                                parts.equals("7") || parts.equals("8") || parts.equals("9")) {
+                            newTask.setTaskSize(Integer.parseInt(parts));
+                            newJob.setTaskSize(newTask.getTaskSize());
+                        } else {
+                            for (Task ifTask : Task.taskTypesList) {
+                                if (ifTask.getTaskId().contains(parts)) {
+                                    //parts.equals(ifTask.getTaskId()
+                                    for (Task ifInStation: Station.stationTypesList){
+                                        if (ifInStation.getTaskId().contains(parts)){
+                                            //parts.equals(ifInStation.getTaskId()
+                                            int a = newTask.getTaskSize();
+                                            int b = ifInStation.getTaskSize();
+                                            newTask.setTaskSize(a/b); //JOBUN TASKİ STATION DA DA VARSA HIZI ÇEKMEK İÇİN BUNU KULLANCAN
+                                            System.out.println("HIZI BURDA AYARLIYOM BU OLDU:"+ newTask.getTaskSize());
+                                        }
+                                    }
+                                    //
+                                    newTask.setTaskId(ifTask.getTaskId());
+                                    newTask.setTaskSize(ifTask.getTaskSize());
+                                } else {
+                                    //System.out.println("Hata verdi");
+                                }
+                                newTask.setTaskId(parts);
+                            }
+                            newJob.jobWithTaskList.add(newTask);
+                        }
+                    }
+                    System.out.println("jobId: " + newJob.getJobId() + newJob.jobWithTaskList);
+                    //System.out.println(Job.allJobsList); // şimdi işte job ıd yle eşitleyip süreyi çekebilirsin
+                }
             }
+
+            System.out.println("------ JOBS-TASKS ----");
+            System.out.println(Job.jobWithTaskList);
             System.out.println("-----TASKS-----");
             System.out.println(Task.taskTypesList);
             System.out.println("-----STATIONS-----");
@@ -139,9 +155,19 @@ public class ReadFile {
     }
     public static void makeEventQueue() {
         int max = 0;
-        LinkedList<String> findQueue = new LinkedList<>();
-        int totalTime = 0;
-
+        int j =-1;
+        LinkedList<Job>EventQueue = new LinkedList<>();
+        //LinkedList<Integer> timeList = new LinkedList<>();
+        for (Job jobTime:Job.jobTypeList){
+            int i= jobTime.getStartTime()+ jobTime.getDuration();
+            if (i>=max){
+                EventQueue.add(jobTime);
+                max=i;
+                j++;
+            }else {
+                EventQueue.add(j,jobTime);
+;            }
+        }
+        System.out.println("EVENT QUEUE:"+EventQueue);
     }
-
 }

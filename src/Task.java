@@ -1,5 +1,5 @@
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.HashMap;
 import java.util.LinkedList;
 
 public class Task {
@@ -7,6 +7,7 @@ public class Task {
     private int taskSize;
     public static LinkedList<Task> taskTypesList =  new LinkedList<>();
     public static LinkedList<Task> StationWithTask = new LinkedList<>();
+    public static HashMap<String, LinkedList<Station>> StringtoStationTask = new HashMap<String, LinkedList<Station>>();
 
     public Task(){
     }

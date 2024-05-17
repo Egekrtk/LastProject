@@ -2,7 +2,7 @@ import java.util.LinkedList;
 
 public class Station extends Task{
     private String stationId;
-    private int capacity;// capacity.length yazdırırız görürüz
+    private int capacity;
     private String multiFlag;
     private String fifoFlag;
     public static LinkedList<Station> stationTypesList = new LinkedList<>();
@@ -12,7 +12,6 @@ public class Station extends Task{
     public Station(){
 
     }
-
     public Station(String stationId, String taskId,int taskSize){
         Station newStation = new Station();
         newStation.setStationId(stationId);
@@ -28,6 +27,24 @@ public class Station extends Task{
         this.multiFlag = multiFlag;
         this.fifoFlag = fifoFlag;
         this.speed = speed;
+    }
+    public boolean canExecuteTask(Task task) {
+        // Check if the station can execute the task
+        if (Task.taskTypesList.isEmpty()) {
+            return true;
+        }
+        if (multiFlag.equals("Y")) {
+            for (Task t : taskTypesList) {
+                if (t.getTaskId().equals(task.getTaskId())){
+                    return true;
+                }
+            }
+        } else {
+            if (taskTypesList.get(0).getTaskId().equals(task.getTaskId())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
