@@ -6,6 +6,7 @@ public class Task {
     private String taskId;
     private int taskSize;
     public static LinkedList<Task> taskTypesList =  new LinkedList<>();
+    public static LinkedList<Task> StationWithTask = new LinkedList<>();
 
     public Task(){
     }
@@ -31,9 +32,18 @@ public class Task {
         //System.out.println("içindeki taskler= "+ tasks);
     }
 
+    public boolean isDefault(String taskId){
+        if (taskId.contains("[taskId='Default',")){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
     @Override
     public String toString() {
-        return "Task{" +
+        return
                 "taskId='" + taskId + '\'' +
                 ", taskSize=" + taskSize +
                 '}';

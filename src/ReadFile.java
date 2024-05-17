@@ -55,22 +55,30 @@ public class ReadFile {
                     }
                     ArrayList<String> jobsParts = new ArrayList<>(List.of(LastLine.split(" ")));
                     line += 1;
-                    Job newJob = new Job("Default", Task.taskTypesList);
-                    LinkedList<String> specialJob = new LinkedList<>();
+                    Job newJob = new Job("Default");
                     jobsParts.remove(0);
                     for (String parts : jobsParts) {
+                        Task newTask = new Task("Default");
                         if (parts.startsWith("J")) {
                             newJob.setJobId(parts);
-                        } else if (parts.startsWith("T")) {
-                            specialJob.add(parts);
+                        } else if(parts.equals("0")|| parts.equals("1")||parts.equals("2") || parts.equals("3")|| parts.equals("4")||parts.equals("5")|| parts.equals("6")||
+                                parts.equals("7")|| parts.equals("8")|| parts.equals("9")){
+                            newTask.setTaskSize(Integer.parseInt(parts));
+                            newJob.setTaskSize(newTask.getTaskSize());
                         } else {
-                            specialJob.add(parts);
+                            for (Task ifTask: Task.taskTypesList){
+                                if (parts.equals(ifTask.getTaskId())){
+                                    newTask.setTaskId(ifTask.getTaskId());
+                                    newTask.setTaskSize(ifTask.getTaskSize());
+                                }else {
+                                    //System.out.println("Hata verdi");
+                                }
+                                newTask.setTaskId(parts);
+                            }
+                                newJob.jobWithTaskList.add(newTask);
                         }
                     }
-                    for (String taskler : specialJob) {
-                        //System.out.println("Id si:" + newJob.getJobId() + " --" + "Taskleri :" + specialJob);
-                    }
-                    Job.jobWithTaskList.add(newJob.getJobId() + specialJob);
+                    System.out.println("jobId: "+newJob.getJobId()+newJob.jobWithTaskList);
                 }
 
 
@@ -83,24 +91,45 @@ public class ReadFile {
                     Station newStation = new Station("Default",0,"Default", "Default",0.0);
                     stationParts.remove(0);
 
+                    for (String parts: stationParts) {
                         newStation.setStationId(stationParts.get(0));
                         newStation.setCapacity(Integer.parseInt(stationParts.get(1)));
                         newStation.setMultiFlag(stationParts.get(2));
                         newStation.setFifoFlag(stationParts.get(3));
-                        newStation.setTaskId(stationParts.get(4));
-                        newStation.setTaskSize(Integer.parseInt(stationParts.get(5)));
-                        if (stationParts.contains("T")) {
-                            newStation.setTaskSize(Integer.parseInt(stationParts.get(4) + stationParts.get(5) + stationParts.get(6) + stationParts.get(7)));
-                        }
                         newStation.setSpeed(Double.parseDouble(stationParts.getLast()));
-                    Station.stationTypesList.add(newStation);
+                        Task newTask = new Task("Default");
+                        if (parts.contains("T")) {
+                            for (Task ifTask : Task.taskTypesList) {
+                                if (parts.equals(ifTask.getTaskId())) {
+                                    newTask.setTaskId(ifTask.getTaskId());
+                                    newTask.setTaskSize(ifTask.getTaskSize());
+                                } else {
+                                    //System.out.println("Hata verdi");
+                                }
+                                newTask.setTaskId(String.valueOf(parts));
+                                newStation.setTaskId(newTask.getTaskId());
+                            }
 
+                        } else if ((parts.equals("0") || parts.equals("1") || parts.equals("2") || parts.equals("3") || parts.equals("4") || parts.equals("5") || parts.equals("6") ||
+                                parts.equals("7") || parts.equals("8") || parts.equals("9"))) {
+                            newTask.setTaskSize(Integer.parseInt(String.valueOf(parts)));
+                            newStation.setSpeed(newTask.getTaskSize() / newStation.getSpeed());
+                            newStation.setTaskSize(newTask.getTaskSize());
+                            //speedi burda ayarlayabilirsin yüzde kısmını galiba ama bilmiyom salla
+                        }
+                        if (newTask.getTaskId().contains("Default")){
+                            continue;
+                        }else {
+                            newStation.stationWithTaskList.add(newTask);
+                        }
+                    }
+                    Station.stationTypesList.add(newStation);
+                    System.out.println("Station ıd: "+newStation.getStationId()+newStation.stationWithTaskList + "Station task making speed :"+ newStation.getSpeed());
                 }
+
             }
             System.out.println("-----TASKS-----");
             System.out.println(Task.taskTypesList);
-            System.out.println("-----JOBS-----");
-            System.out.println(Job.jobWithTaskList);
             System.out.println("-----STATIONS-----");
             System.out.println(Station.stationTypesList);
             System.out.println("-----JOBS PREFERENCES-----");
@@ -109,8 +138,10 @@ public class ReadFile {
         makeEventQueue();
     }
     public static void makeEventQueue() {
-
-
+        int max = 0;
+        LinkedList<String> findQueue = new LinkedList<>();
+        int totalTime = 0;
 
     }
+
 }

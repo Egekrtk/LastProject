@@ -6,14 +6,21 @@ public class Station extends Task{
     private String multiFlag;
     private String fifoFlag;
     public static LinkedList<Station> stationTypesList = new LinkedList<>();
-    public static LinkedList<Task> stationWithTaskList = new LinkedList<>();
+    public  LinkedList<Task> stationWithTaskList = new LinkedList<>();
     private double speed;
 
-    public Station(String stationId, LinkedList<Task> taskList){
-        super(String.valueOf(taskTypesList=taskList));
-        this.stationId = stationId;
+    public Station(){
+
     }
 
+    public Station(String stationId, String taskId,int taskSize){
+        Station newStation = new Station();
+        newStation.setStationId(stationId);
+        Task newTask = new Task(taskId, taskSize);
+        Task.StationWithTask.add(newTask);
+        Station.StationWithTask.add(newStation);
+        System.out.println("Station with task list"+stationWithTaskList);
+        }
 
     public Station(String stationId, int capacity, String multiFlag, String fifoFlag, double speed) {
         this.stationId = stationId;

@@ -3,12 +3,14 @@ import java.io.IOException;
 public class Main {
     public static void main(String[] args) throws IOException {
 
-        //Arraylisti constructorda nasıl kullanabilirim
-        //Joba özel task arrayi nasıl ekliyebilirim
-        //Dosyayı okuduktan sonra oluşan objelere nasıl ulaşabilirim
+        //jobların başlangıç süresine göre event oluştur bitince o jobun görevi süreyi yazdır
+        //for da jobun task ıdlerini döndür , for da stationların ıd lerini  döndür eşit olan varsa stationın speedini kullan yoksa taksize kullanmaya devam et
 
         ReadJobFile jobFile = new ReadJobFile("jobList.txt");
         ReadFile file = new ReadFile("deneme.txt");
+
+
+
 
 
         /*

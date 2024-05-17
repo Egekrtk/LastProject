@@ -9,19 +9,10 @@ public class Job extends  Task{
     private int startTime;
     private int duration;
     public static LinkedList<Job> jobTypeList = new LinkedList<>();
-
-    public static LinkedList<String> jobWithTaskList = new LinkedList<>();
+    public  LinkedList<Task> jobWithTaskList = new LinkedList<>();
 
     public Job(){
     }
-    public  Job(String jobId,String taskId,int taskSize){
-        Job newJob = new Job();
-        newJob.setJobId(jobId);
-        Task newTask = new Task(taskId, taskSize);
-        Task.taskTypesList.add((newTask));
-        Job.jobWithTaskList.add(String.valueOf(newJob));
-    }
-
 
     public Job(String jobId, String jobTypeId, int startTime, int duration) {
         this.jobId = jobId;
@@ -31,9 +22,9 @@ public class Job extends  Task{
 
     }
 
-    public Job(String jobId, LinkedList<Task> taskList){
-        super(String.valueOf(taskTypesList=taskList));
-        this.jobId = jobId;
+    public Job(String jobId){
+        Job newJob = new Job();
+        newJob.setJobId(jobId);
     }
 
     @Override
@@ -78,5 +69,4 @@ public class Job extends  Task{
     public void setDuration(int duration) {
         this.duration = duration;
     }
-
 }
