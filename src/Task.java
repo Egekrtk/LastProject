@@ -7,7 +7,6 @@ public class Task {
     private int taskSize;
     public static LinkedList<Task> taskTypesList =  new LinkedList<>();
     public static LinkedList<Task> StationWithTask = new LinkedList<>();
-    public static HashMap<String, LinkedList<Station>> StringtoStationTask = new HashMap<String, LinkedList<Station>>();
 
     public Task(){
     }
@@ -32,6 +31,7 @@ public class Task {
         //newTask.toString();
         //System.out.println("içindeki taskler= "+ tasks);
     }
+
 
     public boolean isDefault(String taskId){
         if (taskId.contains("[taskId='Default',")){

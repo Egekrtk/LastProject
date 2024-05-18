@@ -1,4 +1,3 @@
-import java.awt.*;
 import java.io.*;
 import java.util.*;
 import java.util.List;
@@ -7,6 +6,8 @@ public class ReadFile {
     private Task task;
     private static Scanner scanner;
     private static double time = 0.0;
+    public HashMap<String, LinkedList<Task>> specialTaskForStation = new HashMap<String, LinkedList<Task>>();
+    public HashMap<String, LinkedList<Task>> specialTaskForJob = new HashMap<String, LinkedList<Task>>();
 
     public ReadFile(String fileName) throws IOException {
         File file = new File("deneme.txt");
@@ -94,7 +95,7 @@ public class ReadFile {
                     }
                     Station.stationTypesList.add(newStation);
                     System.out.println("Station ıd: "+newStation.getStationId()+newStation.stationWithTaskList + "Station task making speed :"+ newStation.getSpeed());
-
+                    specialTaskForStation.put(newStation.getStationId(), newStation.stationWithTaskList);
                 }
 
                 if (LastLine.startsWith(" J")) {
@@ -105,51 +106,58 @@ public class ReadFile {
                     line += 1;
                     Job newJob = new Job("Default");
                     jobsParts.remove(0);
-                    for (String parts : jobsParts) {
+                    for (String parts : jobsParts) { //J1 T1 1 T2 T3 3
                         Task newTask = new Task("Default");
-                        if (parts.startsWith("J")) {
-                            newJob.setJobId(parts);
-                        } else if (parts.equals("0") || parts.equals("1") || parts.equals("2") || parts.equals("3") || parts.equals("4") || parts.equals("5") || parts.equals("6") ||
-                                parts.equals("7") || parts.equals("8") || parts.equals("9")) {
-                            newTask.setTaskSize(Integer.parseInt(parts));
-                            newJob.setTaskSize(newTask.getTaskSize());
-                        } else {
-                            for (Task ifTask : Task.taskTypesList) {
-                                if (ifTask.getTaskId().contains(parts)) {
-                                    //parts.equals(ifTask.getTaskId()
-                                    for (Task ifInStation: Station.stationTypesList){
-                                        if (ifInStation.getTaskId().contains(parts)){
-                                            //parts.equals(ifInStation.getTaskId()
-                                            int a = newTask.getTaskSize();
-                                            int b = ifInStation.getTaskSize();
-                                            newTask.setTaskSize(a/b); //JOBUN TASKİ STATION DA DA VARSA HIZI ÇEKMEK İÇİN BUNU KULLANCAN
-                                            System.out.println("HIZI BURDA AYARLIYOM BU OLDU:"+ newTask.getTaskSize());
-                                        }
+                        newJob.setJobId(jobsParts.get(0));
+                            if (parts.contains("T")) {
+                                for (Task ifTask : Task.taskTypesList) {
+                                    if (parts.equals(ifTask.getTaskId())) {
+                                        newTask.setTaskId(ifTask.getTaskId());
+                                        newTask.setTaskSize(ifTask.getTaskSize());
+                                    } else {
+                                        //System.out.println("Hata verdi");
                                     }
-                                    //
-                                    newTask.setTaskId(ifTask.getTaskId());
-                                    newTask.setTaskSize(ifTask.getTaskSize());
-                                } else {
-                                    //System.out.println("Hata verdi");
+                                    newTask.setTaskId(String.valueOf(parts));
+                                    newJob.setTaskId(newTask.getTaskId());
                                 }
-                                newTask.setTaskId(parts);
                             }
+                            else if ((parts.equals("0") || parts.equals("1") || parts.equals("2") || parts.equals("3") || parts.equals("4") || parts.equals("5") || parts.equals("6") ||
+                                    parts.equals("7") || parts.equals("8") || parts.equals("9"))) {
+                                int a = 0;
+                                newTask.setTaskSize(Integer.parseInt(String.valueOf(parts)));
+                                newJob.setTaskSize(newTask.getTaskSize() * Integer.valueOf(parts));
+                                newJob.setTaskSize(newJob.getTaskSize());
+                            }
+                        if (newTask.getTaskId().contains("Default")){
+                            continue;
+                        }else {
                             newJob.jobWithTaskList.add(newTask);
                         }
                     }
-                    System.out.println("jobId: " + newJob.getJobId() + newJob.jobWithTaskList);
-                    //System.out.println(Job.allJobsList); // şimdi işte job ıd yle eşitleyip süreyi çekebilirsin
+                    Job.jobTypeList.add(newJob);
+                    if (newJob.getJobId().startsWith("J2")|| !newJob.getJobId().startsWith("Job")){
+                        Job.jobTypeList.remove(newJob);
+                    }
+
+                    System.out.println("Job ıd: "+newJob.getJobTypeId()+newJob.jobWithTaskList + "Job task making speed :"+ newJob.getTaskSize());
+                    specialTaskForJob.put(newJob.getJobTypeId(),newJob.jobWithTaskList);
                 }
+
             }
 
+
+
             System.out.println("------ JOBS-TASKS ----");
-            System.out.println(Job.jobWithTaskList);
+            //System.out.println(Job.jobWithTaskList);
             System.out.println("-----TASKS-----");
             System.out.println(Task.taskTypesList);
             System.out.println("-----STATIONS-----");
             System.out.println(Station.stationTypesList);
             System.out.println("-----JOBS PREFERENCES-----");
             System.out.println(Job.jobTypeList);
+            System.out.println("statıon özel :");
+            System.out.println(specialTaskForStation);
+            System.out.println(specialTaskForStation.get("S3"));
         }
         makeEventQueue();
     }
