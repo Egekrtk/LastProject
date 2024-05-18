@@ -8,6 +8,7 @@ public class ReadFile {
     private static double time = 0.0;
     public HashMap<String, LinkedList<Task>> specialTaskForStation = new HashMap<String, LinkedList<Task>>();
     public HashMap<String, LinkedList<Task>> specialTaskForJob = new HashMap<String, LinkedList<Task>>();
+    public static LinkedList<Job>EventQueue = new LinkedList<>();
 
     public ReadFile(String fileName) throws IOException {
         File file = new File("deneme.txt");
@@ -138,11 +139,9 @@ public class ReadFile {
                     if (newJob.getJobId().startsWith("J2")|| !newJob.getJobId().startsWith("Job")){
                         Job.jobTypeList.remove(newJob);
                     }
-
-                    System.out.println("Job ıd: "+newJob.getJobTypeId()+newJob.jobWithTaskList + "Job task making speed :"+ newJob.getTaskSize());
-                    specialTaskForJob.put(newJob.getJobTypeId(),newJob.jobWithTaskList);
+                    System.out.println("Job ıd: "+newJob.getJobId()+newJob.jobWithTaskList + "Job task making speed :"+ newJob.getTaskSize());
+                    specialTaskForJob.put(newJob.getJobId(),newJob.jobWithTaskList);
                 }
-
             }
 
 
@@ -158,13 +157,15 @@ public class ReadFile {
             System.out.println("statıon özel :");
             System.out.println(specialTaskForStation);
             System.out.println(specialTaskForStation.get("S3"));
+            System.out.println("job özel :");
+            System.out.println(specialTaskForJob);
         }
         makeEventQueue();
+        eventTime();
     }
     public static void makeEventQueue() {
         int max = 0;
         int j =-1;
-        LinkedList<Job>EventQueue = new LinkedList<>();
         //LinkedList<Integer> timeList = new LinkedList<>();
         for (Job jobTime:Job.jobTypeList){
             int i= jobTime.getStartTime()+ jobTime.getDuration();
@@ -178,4 +179,21 @@ public class ReadFile {
         }
         System.out.println("EVENT QUEUE:"+EventQueue);
     }
+    public static void eventTime(){
+        int totalTime = 0;
+        int queue = 0;
+        for (Task jobsize: Job.jobWithTaskList ){
+            time += jobsize.getTaskSize();
+            totalTime += time;
+            System.out.println("Taskler "+ time +"Sürdü");
+            System.out.println("Job Bitti !"+EventQueue.get(queue).getJobId() + "Kod adı : "+EventQueue.get(queue).getJobTypeId() );
+            queue++;
+            if (queue >= EventQueue.size()){
+                System.out.println("Tüm Görevler Başarıyla tamamlandı ");
+                System.exit(1);
+            }
+        }
+    }
+
+
 }

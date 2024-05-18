@@ -10,7 +10,7 @@ public class Job extends  Task{
     private int startTime;
     private int duration;
     public static LinkedList<Job> jobTypeList = new LinkedList<>();
-    public   LinkedList<Task> jobWithTaskList = new LinkedList<>();
+    public  static LinkedList<Task> jobWithTaskList = new LinkedList<>();
     public Job(){
     }
 
