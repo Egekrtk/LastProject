@@ -83,8 +83,8 @@ public class Job {
 
     public static void calculateStationUtilization(){
         for (Station station : Station.StationTypeList) {
-            int idleTime = 0;
-            int totalTime = 0;
+            int idleTime = station.getCapacity();
+            double totalTime = station.getSpeed();
             if (totalTime + idleTime == 0) {
                 System.out.println("Station " + station.getStationId() + " utilization: 0.0");
             } else {
@@ -100,6 +100,7 @@ public class Job {
             System.out.println("Station " + station.getStationId() + " utilization: " + utilization);
         }
     }
+
 
     @Override
     public String toString() {
