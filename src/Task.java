@@ -1,71 +1,58 @@
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.function.Consumer;
 
 public class Task {
-    private String taskId;
-    private int taskSize;
-    public static LinkedList<Task> taskTypesList =  new LinkedList<>();
+    private String ıd;
+    private int size;
+
+    public static HashMap<String,Integer>TaskList = new HashMap<>();
+    public static LinkedList<Task>JobspecilTask = new LinkedList<>();
     public static LinkedList<Task> StationWithTask = new LinkedList<>();
 
+    public Task(String ıd,int size){
+        this.ıd = ıd;
+        this.size = size;
+
+        TaskList.put(ıd, size);
+    }
     public Task(){
     }
-
-    public Task(String taskId){
-    this.taskId = taskId;
-    }
-
-    public Task(String taskId, int taskSize){
-        this.taskId = taskId;
-        this.taskSize = taskSize;
-    }
-
-    public static void createNewTask(String taskName, int taskSize){
-        Task newTask = new Task(taskName,taskSize);
-        newTask.setTaskId(taskName);
-        ArrayList<String> tasks = new ArrayList<>(); // size ı kadar array için gerekli !!
-        taskTypesList.add(newTask) ;
-        for (int i = 0;i<taskSize;i++){
-            tasks.add(taskName) ;
+    public static boolean isInStation(Task task){
+        boolean b ;
+        String key = task.getId();
+        if (Station.specialTaskForStation.containsKey(key)){
+            int value = Integer.parseInt(Station.specialTaskForStation.get(key));
+            b = true;
+        } else {
+            b = false;
         }
-        //newTask.toString();
-        //System.out.println("içindeki taskler= "+ tasks);
+        return b;
     }
 
 
-    public boolean isDefault(String taskId){
-        if (taskId.contains("[taskId='Default',")){
-            return true;
-        }
-        else {
-            return false;
-        }
+
+    public String getId() {
+        return ıd;
     }
 
-    @Override
-    public String toString() {
-        return
-                "taskId='" + taskId + '\'' +
-                ", taskSize=" + taskSize +
-                '}';
+    public void setId(String ıd) {
+        this.ıd = ıd;
     }
 
-    public String getTaskId() {
-        return taskId;
+    public int getSize() {
+        return size;
     }
-    public void setTaskId(String taskId) {
-        this.taskId = taskId;
+
+    public void setSize(int size) {
+        this.size = size;
     }
-    public int getTaskSize() {
-        return taskSize;
+
+    public HashMap<String, Integer> getTaskList() {
+        return TaskList;
     }
-    public void setTaskSize(int taskSize) {
-        this.taskSize = taskSize;
-    }
-    public static LinkedList<Task> getTaskList() {
-        return taskTypesList;
-    }
-    public static void setTaskList(LinkedList<Task> taskList) {
-        Task.taskTypesList = taskList;
+
+    public void setTaskList(HashMap<String, Integer> taskList) {
+        TaskList = taskList;
     }
 }

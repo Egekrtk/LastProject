@@ -1,60 +1,52 @@
+import java.util.HashMap;
 import java.util.LinkedList;
 
 public class Station extends Task{
     private String stationId;
     private int capacity;
-    private String multiFlag;
-    private String fifoFlag;
-    public static LinkedList<Station> stationTypesList = new LinkedList<>();
-    public  LinkedList<Task> stationWithTaskList = new LinkedList<>();
+    private boolean multiFlag;
+    private boolean fifoFlag;
+    private Task task;
+    private Job job;
     private double speed;
+    public static LinkedList<Station> StationTypeList = new LinkedList<>();
+    public static LinkedList<Task> stationWithTaskList = new LinkedList<>();
+    public static HashMap<String, String> specialTaskForStation = new HashMap<String, String>();
 
     public Station(){
 
     }
-    public Station(String stationId, String taskId,int taskSize){
-        Station newStation = new Station();
-        newStation.setStationId(stationId);
-        Task newTask = new Task(taskId, taskSize);
-        Task.StationWithTask.add(newTask);
-        Station.StationWithTask.add(newStation);
-        System.out.println("Station with task list"+stationWithTaskList);
-        }
-
-    public Station(String stationId, int capacity, String multiFlag, String fifoFlag, double speed) {
+    public Station(String stationId, int capacity, boolean multiFlag, boolean fifoFlag, double speed) {
         this.stationId = stationId;
         this.capacity = capacity;
         this.multiFlag = multiFlag;
         this.fifoFlag = fifoFlag;
         this.speed = speed;
     }
-    public boolean canExecuteTask(Task task) {
-        // Check if the station can execute the task
-        if (Task.taskTypesList.isEmpty()) {
-            return true;
-        }
-        if (multiFlag.equals("Y")) {
-            for (Task t : taskTypesList) {
-                if (t.getTaskId().equals(task.getTaskId())){
-                    return true;
-                }
-            }
-        } else {
-            if (taskTypesList.get(0).getTaskId().equals(task.getTaskId())) {
-                return true;
-            }
-        }
-        return false;
+    public static void createStation(String stationId, int capacity, boolean multiFlag, boolean fifoFlag, double speed,Task task) throws SyntaxError {
+        Station newStation = new Station(stationId, capacity, multiFlag, fifoFlag, speed);
+        //Task newTask = new Task(task.getId(),task.getSize());
+        Task.StationWithTask.add(task);
+        stationWithTaskList.add(task);
+        specialTaskForStation.remove(0);
+        specialTaskForStation.put(newStation.getStationId()," Added "+task.getId()+"-"+task.getSize());
+    }
+
+    public static void calculateTime(Station station,Task task){
+        int size = TaskList.get(task.getId());
+        int hızlandır = stationWithTaskList.get(station.getSize()).getSize();
+        int taskDuration = size/hızlandır ;
+
     }
 
     @Override
     public String toString() {
         return "Station{" +
                 "stationId='" + stationId + '\'' +
-                ", capacity='" + capacity + '\'' +
-                ", multiFlag='" + multiFlag + '\'' +
-                ", fifoFlag='" + fifoFlag + '\'' +
-                ", speed=" + speed + '\'' +
+                ", capacity=" + capacity +
+                ", multiFlag=" + multiFlag +
+                ", fifoFlag=" + fifoFlag +
+                ", speed=" + speed +
                 '}';
     }
 
@@ -74,28 +66,34 @@ public class Station extends Task{
         this.capacity = capacity;
     }
 
-    public String getMultiFlag() {
+    public boolean isMultiFlag(String bool) {
+        if (bool.equals("Y")){
+            multiFlag = true;
+        } else if (bool.equals("N")) {
+            multiFlag = false;
+        }else {
+            new SyntaxError("this station can not do more task");
+        }
         return multiFlag;
     }
 
-    public void setMultiFlag(String multiFlag) {
+    public void setMultiFlag(boolean multiFlag) {
         this.multiFlag = multiFlag;
     }
 
-    public String getFifoFlag() {
+    public boolean isFifoFlag(String bool) {
+        if (bool.equals("Y")){
+            multiFlag = true;
+        } else if (bool.equals("N")) {
+            multiFlag = false;
+        }else {
+            new SyntaxError("this station can not do more task");
+        }
         return fifoFlag;
     }
 
-    public void setFifoFlag(String fifoFlag) {
+    public void setFifoFlag(boolean fifoFlag) {
         this.fifoFlag = fifoFlag;
-    }
-
-    public static LinkedList<Station> getStationTypesList() {
-        return stationTypesList;
-    }
-
-    public static void setStationTypesList(LinkedList<Station> stationTypesList) {
-        Station.stationTypesList = stationTypesList;
     }
 
     public double getSpeed() {
@@ -103,6 +101,10 @@ public class Station extends Task{
     }
 
     public void setSpeed(double speed) {
-        this.speed = speed;
+        double max = speed;
+        double min = (speed*-1);
+        double range = (max - min)+speed ;
+        double rand = (double) (Math.random() * range) + min;
+        this.speed = rand;
     }
 }
