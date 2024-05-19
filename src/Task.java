@@ -7,6 +7,7 @@ public class Task {
 
     public static HashMap<String,Integer>TaskList = new HashMap<>();
     public static LinkedList<Task>JobspecilTask = new LinkedList<>();
+    public static LinkedList<Task>TasksList = new LinkedList<>();
     public static LinkedList<Task> StationWithTask = new LinkedList<>();
 
     public Task(String ıd,int size){
@@ -27,6 +28,10 @@ public class Task {
             b = false;
         }
         return b;
+    }
+    public static void addList(Task task){
+        task = new Task();
+        TasksList.add(task);
     }
 
 

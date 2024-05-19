@@ -169,6 +169,8 @@ public class ReadFile {
         System.out.println("EVENT QUEUE:"+EventQueue);
         System.out.println(" ");
         System.out.println("Tasks will take :"+ Job.totalTime+" ");
+        Job.calculateTardiness();
+        Job.calculateStationUtilization();
     }
 
     public static boolean checkIf(){

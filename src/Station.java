@@ -32,13 +32,6 @@ public class Station extends Task{
         specialTaskForStation.put(newStation.getStationId()," Added "+task.getId()+"-"+task.getSize());
     }
 
-    public static void calculateTime(Station station,Task task){
-        int size = TaskList.get(task.getId());
-        int hızlandır = stationWithTaskList.get(station.getSize()).getSize();
-        int taskDuration = size/hızlandır ;
-
-    }
-
     @Override
     public String toString() {
         return "Station{" +

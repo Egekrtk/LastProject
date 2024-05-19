@@ -64,6 +64,41 @@ public class Job {
             System.out.println(jobSpecialTask);
         }
     }
+    public static void calculateTardiness() {
+        int totalTardiness = 0;
+        int lateJobs = 0;
+        for (JobPreferences jp : JobPreferences.JobTypeList) {
+            if (jp.getEndTime() > jp.getStarTime()) {
+                totalTardiness += jp.getEndTime() - jp.getStarTime();
+                lateJobs++;
+            }
+            if (lateJobs > 0) {
+                double averageTardiness = (double) totalTardiness / lateJobs;
+                System.out.println("Average job tardiness: " + averageTardiness);
+            } else {
+                System.out.println("No late jobs.");
+            }
+        }
+    }
+    public static void calculateStationUtilization(){
+        for (Station station : Station.StationTypeList) {
+            int idleTime = 0;
+            int totalTime = 0;
+            if (totalTime + idleTime == 0) {
+                System.out.println("Station " + station.getStationId() + " utilization: 0.0");
+            } else {
+                for (Task task : Task.TasksList) {
+                    if (task.isInStation(station)) {
+                    totalTime += task.getSize();
+                } else {
+                        idleTime += task.getSize();
+                    }
+                }
+            }
+            double utilization = (double) totalTime / (totalTime + idleTime);
+            System.out.println("Station " + station.getStationId() + " utilization: " + utilization);
+        }
+    }
 
     @Override
     public String toString() {
