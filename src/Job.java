@@ -72,14 +72,15 @@ public class Job {
                 totalTardiness += jp.getEndTime() - jp.getStarTime();
                 lateJobs++;
             }
-            if (lateJobs > 0) {
-                double averageTardiness = (double) totalTardiness / lateJobs;
-                System.out.println("Average job tardiness: " + averageTardiness);
-            } else {
-                System.out.println("No late jobs.");
-            }
+        }
+        if (lateJobs > 0) {
+            double averageTardiness = (double) totalTardiness / lateJobs;
+            System.out.println("Average job tardiness: " + averageTardiness);
+        } else {
+            System.out.println("No late jobs.");
         }
     }
+
     public static void calculateStationUtilization(){
         for (Station station : Station.StationTypeList) {
             int idleTime = 0;

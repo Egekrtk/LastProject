@@ -34,8 +34,6 @@ public class Task {
         TasksList.add(task);
     }
 
-
-
     public String getId() {
         return ıd;
     }

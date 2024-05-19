@@ -170,7 +170,7 @@ public class ReadFile {
         System.out.println(" ");
         System.out.println("Tasks will take :"+ Job.totalTime+" ");
         Job.calculateTardiness();
-        Job.calculateStationUtilization();
+        //Job.calculateStationUtilization();
     }
 
     public static boolean checkIf(){

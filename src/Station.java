@@ -13,6 +13,7 @@ public class Station extends Task{
     public static LinkedList<Task> stationWithTaskList = new LinkedList<>();
     public static HashMap<String, String> specialTaskForStation = new HashMap<String, String>();
 
+
     public Station(){
 
     }
@@ -31,6 +32,7 @@ public class Station extends Task{
         specialTaskForStation.remove(0);
         specialTaskForStation.put(newStation.getStationId()," Added "+task.getId()+"-"+task.getSize());
     }
+
 
     @Override
     public String toString() {
@@ -101,3 +103,4 @@ public class Station extends Task{
         this.speed = rand;
     }
 }
+
