@@ -47,7 +47,9 @@ public class ReadFile {
                     System.out.println(Task.TaskList);
                 }
             }
+            System.out.println(" ");
             System.out.println("---Stations and features---");
+            System.out.println(" ");
             while ((anOtherLine = ar.readLine()) != null) {
                 int anotherNewLineNumber = anOtherLine.length();
                 String anotherLine = anOtherLine.substring(0, anotherNewLineNumber);
@@ -90,6 +92,7 @@ public class ReadFile {
 
                 }
             }
+            System.out.println(" ");
             System.out.println("---Jobs and features---");
 
             while ((otherLine = nr.readLine()) != null) {

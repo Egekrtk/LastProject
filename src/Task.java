@@ -1,6 +1,5 @@
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.function.Consumer;
 
 public class Task {
     private String ıd;
